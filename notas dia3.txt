@@ -1,0 +1,132 @@
+https://www.awsacademy.com/vforcesite/LMS_Login
+thernanp@gmail.com
+0910014257
+
+
+docker hub
+tomitodotnet
+
+docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx
+
+sudo docker run --name miservidorweb1 -d nginx
+
+docker run --name miservidorweb1 -d nginx
+docker run --name miservidorweb1 -d -p 8080:80 nginx
+docker run --name miservidorweb1 -d -p 8080:80 some-content-nginx
+
+http://3.95.174.98:8080
+
+
+
+
+sudo docker exec -it miservidorweb1 bash
+
+nginex html directory ( goole)
+
+cd /usr/share/nginx/html
+
+apt update
+apt upgrade
+apt install nano
+
+nano index.html
+ctrl o 
+ctrl x
+
+sudo docker ps
+docker stop miservidorweb1
+
+docker run --name miservidorweb2  -p 80:80 -v web:/usr/share/nginx/html -d nginx
+
+docker volume ls
+docker inspect web
+
+cd /var/lib/docker/volumes/web/_data
+
+docker volumen create web1
+
+
+
+mkdir dockercomposetest
+cd dockercomposetest
+nano app.py
+
+
+sudo apt install docker-compose
+
+pasos tarea 2:
+1.1 sudo -i
+1.2 docker run --name miservidorweb1 -d -p 8080:80 nginx 
+2.1 cd /usr/share/nginx/html
+2.2 apt update
+2.3 apt upgrade
+2.4 apt install nano
+2.5 nano index.html  
+
+3.1 docker stop miservidorweb1
+3.2 docker start miservidorweb1
+
+4.1  docker stop miservidorweb1
+5.1 docker run --name miservidorweb2  -p 80:80 -v web:/usr/share/nginx/html -d nginx
+6.1 cd /var/lib/docker/volumes/web/_data
+6.2 nano index.html
+7.1 http://3.95.174.98:8080	
+8.1 docker volume create webData
+9.1 docker inspect webData
+10.1 cd /var/lib/docker/volumes/webData/_data
+10.2 nano index.html
+10.3 docker run --name miservidorweb3  -p 8081:80 -v webData:/usr/share/nginx/html -d nginx
+
+actividad 2
+0. cd /
+1. mkdir DockerComposeTest
+2. cd DockerComposeTest
+3. nano app.py
+
+from flask import Flask
+from redis import Redis
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
+
+@app.route('/')
+def hello():
+    redis.incr('hits')
+    return 'Hello World! I have been seen %s times.' % redis.get('hits')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
+
+4. nano requirements.txt
+flask
+redis
+
+5. nano Dockerfile 
+
+FROM python:2.7
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD python app.py
+
+7. nano docker-compose.yml
+
+web:
+  build: .
+  ports:
+   - "5000:5000"
+  volumes:
+   - .:/code
+  links:
+   - redis
+redis:
+  image: redis
+
+8. 
+9.1 apt install docker-compose
+9.2 docker-compose up -d
+ 
+10 http://3.95.174.98:5000	 
+
+11.1 docker-compose down
+11.2 docker-compose up -d
+
