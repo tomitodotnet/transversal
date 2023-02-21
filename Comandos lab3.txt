@@ -1,0 +1,48 @@
+i-04f7d24451475bdbe (contenedores)
+PublicIPs: 54.147.138.122    PrivateIPs: 172.31.31.234
+
+1. sudo -i
+2. docker login
+
+
+3. mkdir FlaskRedis
+4. cd FlaskRedis
+5. nano app.py
+6. ctrl o
+7. ctrl x
+8. nano requirements.txt
+9. nano Dockerfile
+10. nano docker-compose.yml
+11. docker-compose up -d
+
+docker-compose up -d --build
+
+12. docker image ls
+flaskredis_web            latest    91b7d99729fc   13 minutes ago   907MB
+
+docker compose down
+docker compose up -d
+docker inspect flaskredis_persistentRedis
+
+
+13. docker tag flaskredis_web tomitodotnet/flask_redis_web:0.1
+14 docker push tomitodotnet/flask_redis_web:0.1
+15 docker-compose down
+16 nano docker-compose.yml
+17 image: tomitodotnet/flask_redis_web:0.1
+18 docker-compose up -d
+
+19 apt install awscli
+ ok
+20 cd ..
+21 mkdir ~/.aws
+22 nano ~/.aws/credentials 
+
+[default]
+aws_access_key_id=ASIAUP65VHTMMJ4VSVEW
+aws_secret_access_key=4BXeui6vAyxonKh6mzDU2YquyoDnU0M57PslQZXj
+aws_session_token=FwoGZXIvYXdzEC0aDB8HZMwiAnu8qL7nViLAAeQ0F2dxMxL7/dBMZhAGLp/2neSnPgsLo0tjjr0dMFTXwaN2u79PsRj1oQNqlfAtl9/1kLJEhwRuvKFE/kJ68XJ1aX9u0OH6K0zAjHEuIMNmTr6POnkze1sdVkKP24TSQwDMc5T89ke3DDtlON6tfs88pkCZfnoAFoJfffeWV3DN8OnNoTkRnUNHyVu2Erbfbzja1ur8jj+rdKfpzyzlmnLZzUVCmmcymVpDOIv1PMLHdDABW2Jic5qOeNvjzJH3EyiH9dCfBjItnuqP4i0Ry8OwlvIrGs/Ga2JjgYz8Lr7WgtaSvfF2JoU4eBIN1da/uY+PRWQW
+
+23 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 309165636824.dkr.ecr.us-east-1.amazonaws.com
+24 docker tag tomitodotnet/flask_redis_web:0.1 309165636824.dkr.ecr.us-east-1.amazonaws.com/hernandez_bootcamp_espol:0.1
+25 docker push 309165636824.dkr.ecr.us-east-1.amazonaws.com/hernandez_bootcamp_espol:0.1
